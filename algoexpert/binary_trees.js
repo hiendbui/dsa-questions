@@ -52,16 +52,12 @@ function calculateBranchSums(node, runningSum, sums) {
 
 
 //O(n) T | O(h) S (where n is # of nodes and h is height of binary tree)
-function nodeDepths(root) {
-	return calcNodeDepth(root.left,sum, 1) + calcNodeDepth(root.right,sum, 1)
-}
-
-function calcNodeDepth(node, sum, level) {
+function nodeDepths(node, sum = 0, level = 0) {
 	if (!node) return sum;
-	let newSum = sum + level;
+	let newSum = sum + level
 	
-	if (node.left) newSum = calcNodeDepth(node.left,newSum, level + 1);
-	if (node.right) newSum = calcNodeDepth(node.right, newSum, level + 1);
+	newSum += nodeDepths(node.left,sum, level + 1);
+	newSum += nodeDepths(node.right, sum, level + 1);
 	
 	return newSum
 }
