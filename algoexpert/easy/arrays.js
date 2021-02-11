@@ -27,12 +27,14 @@ function isValidSubsequence(array, sequence) {
 // O(n) T | O(k) S where n is # of comps and k is # of teams;
 function tournamentWinner(competitions, results) {
   	let pointCount = new Map();
+	let mostPoints = 0;
 	let winner = '';
 	let tourneyWinner = '';
 	for (let i = 0; i < competitions.length; i++) {
 		winner = results[i] ? competitions[i][0] : competitions[i][1];
 		pointCount[winner] ? pointCount[winner] += 3 : pointCount[winner] = 3;
-		if (pointCount[winner] === Math.max(...Object.values(pointCount))) {
+		if (pointCount[winner] > mostPoints) {
+			mostPoints = pointCount[winner];
 			tourneyWinner = winner;
 		}
 	}
