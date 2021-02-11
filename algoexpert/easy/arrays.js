@@ -39,3 +39,15 @@ function tournamentWinner(competitions, results) {
 	
 	return tourneyWinner
 }
+
+//O(nlog(n)) T because of .sort() | O(1) S
+function nonConstructibleChange(coins) {
+  coins.sort((a,b)=>a-b);
+	let change = 0;
+	for (let i = 0; i < coins.length; i++ ) {
+		if (change+1 < coins[i]) {
+			return change + 1
+		} else change += coins[i]
+	}
+ 	return change + 1;
+}
