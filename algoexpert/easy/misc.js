@@ -31,3 +31,24 @@ class LinkedList {
     this.next = null;
   }
 }
+
+//O(nlog(n)) time | O(1) S
+function classPhotos(redShirtHeights, blueShirtHeights) {
+	redShirtHeights.sort((a,b)=>a-b);
+	blueShirtHeights.sort((a,b)=>a-b);
+	let back;
+	let front;
+	if (redShirtHeights[0] > blueShirtHeights[0]) {
+		back = redShirtHeights;
+		front = blueShirtHeights;
+	} else if (blueShirtHeights[0] > redShirtHeights[0]) {
+		back = blueShirtHeights;
+		front = redShirtHeights;
+	} else return false;
+	
+  	for (let i = 0; i < redShirtHeights.length; i++) {
+		if (back[i] <= front[i]) return false;
+	}
+	
+  	return true;
+}
