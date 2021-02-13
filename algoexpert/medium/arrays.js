@@ -64,3 +64,21 @@ function moveElementToEnd(array, toMove) {
 	}
 	return array
 }
+
+//O(n) T | O(1) S 
+function isMonotonic(array) {
+	let increasing = false;
+	let decreasing = false;
+	for (i=0; i<array.length; i++) {
+		let curDiff = array[i+1]-array[i]
+		if (increasing && curDiff < 0) {
+			return false;
+		} else if (decreasing && curDiff > 0) {
+			return false;
+		} else if (!increasing && !decreasing) {
+			if (curDiff > 0) increasing = true;
+			if (curDiff < 0) decreasing = true;
+		}
+	}
+	return true
+}
