@@ -50,7 +50,7 @@ function smallestDifference(arrayOne, arrayTwo) {
 
 //O(n) T | O(1) S
 function moveElementToEnd(array, toMove) {
-  let left = 0;
+  	let left = 0;
 	let right = array.length - 1;
 	
 	while(left < right) {
@@ -117,3 +117,33 @@ function spiralTraverse(array) {
 	}
 	return newArr
  }
+
+ function longestPeak(array) {
+  	let longest = 0;
+	
+	for (let i = 1; i < array.length; i++) {
+		let left = i-1;
+		let right = i+1;
+		if (array[i] > array[left] && array[i] > array[right]) {
+			let curLength = 3;
+			left--;
+			right++;
+			while (left >= 0) {
+				if (array[left] < array[left+1]) {
+					curLength++;
+				} else break;
+				left--
+			}
+			
+			while (right < array.length) {
+				if (array[right] < array[right-1]) {
+					curLength++
+				} else break;
+				right++
+			}
+			longest = Math.max(longest, curLength)
+		}
+	}
+	
+	return longest
+}
