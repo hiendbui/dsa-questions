@@ -159,3 +159,15 @@ function arrayOfProducts(array) {
 		return product
 	})
 }
+
+//O(n) T | O(n) S
+function firstDuplicateValue(array) {
+	const visited = new Set();
+  	for (i = 0; i<array.length;i++) {
+		if (visited.has(array[i])) {
+			return array[i];
+		} else visited.add(array[i]);
+		console.log(visited)
+	}
+	return -1;
+}
