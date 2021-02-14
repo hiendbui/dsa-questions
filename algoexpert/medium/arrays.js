@@ -118,6 +118,7 @@ function spiralTraverse(array) {
 	return newArr
  }
 
+ //O(n) T| O(1) S
  function longestPeak(array) {
   	let longest = 0;
 	
@@ -146,4 +147,15 @@ function spiralTraverse(array) {
 	}
 	
 	return longest
+}
+
+//O(n^2) T | O(n) S
+function arrayOfProducts(array) {
+  return array.map((num1,i) => {
+		let product = 1;
+		array.forEach((num2,j) => {
+			if (i !== j) product *= num2;
+		})
+		return product
+	})
 }
