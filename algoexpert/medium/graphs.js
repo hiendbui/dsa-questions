@@ -22,3 +22,13 @@ class Node {
 		return array;
   }
 }
+
+//O(n) T | O(d) S where n is # of nodes and d is depth of tree
+
+function validateBst(tree, minValue = -Infinity,maxValue = Infinity) {
+	if (tree === null) return true;
+	if (tree.value < minValue || tree.value >= maxValue) return false;
+	
+	return validateBst(tree.left, minValue, tree.value) && validateBst(tree.right, tree.value,maxValue)
+	
+}
