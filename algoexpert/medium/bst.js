@@ -19,7 +19,7 @@ function inOrderTraverse(tree, array) {
 }
 
 function preOrderTraverse(tree, array) {
-  if (tree !== null) {
+    if (tree !== null) {
 		array.push(tree.value);
 		preOrderTraverse(tree.left, array);
 		preOrderTraverse(tree.right, array);
@@ -28,10 +28,21 @@ function preOrderTraverse(tree, array) {
 }
 
 function postOrderTraverse(tree, array) {
-  if (tree !== null) {
+    if (tree !== null) {
 		postOrderTraverse(tree.left,array);
 		postOrderTraverse(tree.right,array);
 		array.push(tree.value);
 	}
 	return array;
+}
+
+
+//O(n) ST 
+function minHeightBst(array, startIdx=0, endIdx=array.length-1) {
+	if (startIdx > endIdx) return null;
+    const midIdx = Math.floor((startIdx+endIdx)/2);
+	const root = new BST(array[midIdx]);
+	root.left = minHeightBst(array, startIdx, midIdx-1);
+	root.right = minHeightBst(array, midIdx+1, endIdx);
+	return root;
 }
