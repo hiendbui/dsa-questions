@@ -15,3 +15,13 @@ function invertBinaryTree(tree) {
 	}
 	return tree
 }
+
+//O(n) T | O(d) S
+function binaryTreeDiameter(tree,longest=0) {
+	if (tree === null) return longest;
+	if (tree.left) longest++;
+	if (tree.right) longest++;
+	let leftDiameter = binaryTreeDiameter(tree.left,longest);
+	let rightDiameter = binaryTreeDiameter(tree.right,longest);
+	return Math.max(leftDiameter,rightDiameter);
+}
