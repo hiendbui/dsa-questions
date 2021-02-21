@@ -11,3 +11,18 @@ function maxSubsetSumNoAdjacent(array) {
 	}
 	return firstMax;
 }
+
+//O(nd) T | O(n) S 
+function numberOfWaysToMakeChange(n, denoms) {
+	const ways = new Array(n + 1).fill(0);
+	ways[0] = 1;
+
+	denoms.forEach(denom => {
+		for (let amount = 1; amount < ways.length; amount++) {
+			if (denom <= amount) {
+				ways[amount] += ways[amount - denom];
+			}
+		}
+	})
+	return ways[n]
+}
