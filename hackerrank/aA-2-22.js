@@ -1,4 +1,4 @@
-//1 Passed
+//1) Passed all
 function funWithAnagrams(text) {
     let res = [text[0]];
     
@@ -32,7 +32,7 @@ function isAnagram(str1,str2) {
 
 
 
-//2 Passed
+//2) Passed all
 function maximumOccurringCharacter(text) {
     const chars = {};
     for (let i = 0; i < text.length; i++) {
@@ -54,7 +54,7 @@ function maximumOccurringCharacter(text) {
 
 
 
-//3 Passed
+//3) Passed all
 function finalInstances(instances, averageUtil) {
     let i = 0;
     while (i < averageUtil.length) {
@@ -78,7 +78,7 @@ function finalInstances(instances, averageUtil) {
 
 
 
-//4 6/12 test cases
+//4) 6/12 test cases passed
 function countPairs(numbers, k) {
     const uniqPairs = new Set();
     const takenPairs = new Set();

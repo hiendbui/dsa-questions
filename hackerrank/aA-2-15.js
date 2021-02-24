@@ -1,3 +1,4 @@
+//All passed excepted 1 test case for getNumber
 function playlist(songs) {
     let durations = {};
     let count = 0;
@@ -35,7 +36,7 @@ function findPairs(song, durations, max) {
 function getUmbrellas(requirement, sizes) {
     let minUmbrellas = Infinity;
     let set = new Set();
-    sizes.sort().forEach((size)=>set.add(size));
+    sizes.forEach((size)=>set.add(size));
     set.forEach((size) => {
         if (size <= requirement) {
             if (requirement % size === 0) minUmbrellas = Math.min(minUmbrellas, requirement/size);
