@@ -78,49 +78,30 @@ function finalInstances(instances, averageUtil) {
 
 
 
-//4) 6/12 test cases passed
+//4) 6/12 test cases passed initally; correct solution below
 function countPairs(numbers, k) {
-    const uniqPairs = new Set();
-    const takenPairs = new Set();
-    const uniqNums = [...new Set(numbers)];
-    if (k === 0 && numbers.length !== uniqNums) {
-        const nums = new Set();
-        const seen = new Set();
-        let count = 0;
-        numbers.forEach((num) => {
-           if (nums.has(num)) {
-               nums.add(num);
-           } else {
-               if (!seen.has(num)) {
-                   seen.add(num);
-                   count++;
-               }
-           }
-        }); 
-        return count;   
-    }
-    
-    for (let i = 0; i < uniqNums.length-1; i++) {
-        for (let j = i+1; j < uniqNums.length; j++) {
-            const str = `${[uniqNums[i],uniqNums[j]]}`;
-            if (!takenPairs.has(str)){
-                uniqPairs.add(str);
-                takenPairs.add(`${[uniqNums[j],uniqNums[i]]}`)
-            }
-        }
-    }
-    
     let count = 0;
-    
-        
-    uniqPairs.forEach((pair) => {
-        const arr = pair.split(',');
-        const num1 = parseInt(arr[0]);
-        const num2 = parseInt(arr[1]);
-        if (num1 + k === num2 || num2 + k === num1) {
+    const set = new Set(numbers);
+    let arr = [...set];
+    arr.sort((a, b) => a-b);
+
+    let left = 0;
+    let right = 1;
+
+    while (right < numbers.length) {
+        const sum = arr[left] + k;
+        if (sum < arr[right]) {
+            if (right - left === 1) {
+                right++
+            }
+            left++
+        } else if (sum > arr[right]) {
+            right++
+        } else {
             count++;
+            left++;
+            right++;
         }
-        
-    })
+    }
     return count;
 }
