@@ -43,3 +43,31 @@ const numIslands = function(grid) {
     
     return count;
 };
+
+
+
+// Given a m x n grid filled with non-negative numbers, find a path from top left 
+// to bottom right, which minimizes the sum of all numbers along its path.
+
+// Note: You can only move either down or right at any point in time.
+
+//Brute force with recursion and memoization
+
+const minPathSum = function(grid, i=0, j=0, memo={}) {
+    let sum = grid[i][j];
+    if (i === grid.length-1 && j === grid[0].length-1) return sum;
+    let downSum = Infinity;
+    let rightSum = Infinity;
+    
+    if (i < grid.length-1) {
+        downSum = memo[`${i+1},${j}`] ? memo[`${i+1},${j}`] : minPathSum(grid, i+1, j, memo);
+    }
+    
+    if (j < grid[0].length-1) {
+        rightSum = memo[`${i},${j+1}`] ? memo[`${i},${j+1}`] : minPathSum(grid, i, j+1, memo);
+    }
+    
+    sum += Math.min(downSum,rightSum);
+    memo[`${i},${j}`] = sum;
+    return sum;
+};
