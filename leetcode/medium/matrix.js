@@ -46,6 +46,7 @@ const numIslands = function(grid) {
 
 
 
+
 // Given a m x n grid filled with non-negative numbers, find a path from top left 
 // to bottom right, which minimizes the sum of all numbers along its path.
 
@@ -70,4 +71,24 @@ const minPathSum = function(grid, i=0, j=0, memo={}) {
     sum += Math.min(downSum,rightSum);
     memo[`${i},${j}`] = sum;
     return sum;
+};
+
+//Most Optimal with Dynamic Programming
+//O(mn) T | O(1) S
+const minPathSum = function(grid) {
+    for (let r = 1; r < grid.length; r++) {
+        grid[r][0] += grid[r-1][0];   
+    }
+    
+    for (let c = 1; c < grid[0].length; c++) {
+        grid[0][c] += grid[0][c-1];
+    }
+    
+    for (let r = 1; r < grid.length; r++) {
+        for (let c = 1; c < grid[0].length; c++) {
+            grid[r][c] += Math.min(grid[r-1][c],grid[r][c-1]);
+        }
+    }
+    
+    return grid[grid.length-1][grid[0].length-1];
 };
