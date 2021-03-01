@@ -31,6 +31,8 @@ const minCost = function(s, cost) {
 // A mapping of digit to letters (just like on the telephone buttons) is given below. 
 // Note that 1 does not map to any letters.
 
+
+//O(3^n x 4^m) ST
 const letterCombinations = function(digits) {
     if (digits.length === 0) return [];
     
