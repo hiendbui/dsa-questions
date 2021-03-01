@@ -44,3 +44,18 @@ const isValid = function(s) {
     return stack.length === 0;
     
 };
+
+// Given an integer n, return any array containing n unique integers such that they add up to 0.
+//O(n) ST
+const sumZero = function(n) {
+    const arr = [];
+    if (n % 2 !== 0) {
+        arr.push(0);
+    } 
+    
+    while (arr.length < n) {
+        arr.push(arr.length+1);
+        arr.push(-arr.length);
+    }
+    return arr;
+};

@@ -32,7 +32,7 @@ const minCost = function(s, cost) {
 // Note that 1 does not map to any letters.
 
 
-//O(3^n x 4^m) ST
+//O(3^n x 4^m) ST where n is # of digits that maps to 3 chars and m to 4
 const letterCombinations = function(digits) {
     if (digits.length === 0) return [];
     
