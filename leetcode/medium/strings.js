@@ -31,8 +31,6 @@ const minCost = function(s, cost) {
 // A mapping of digit to letters (just like on the telephone buttons) is given below. 
 // Note that 1 does not map to any letters.
 
-
-//O(3^n x 4^m) ST where n is # of digits that maps to 3 chars and m to 4
 const letterCombinations = function(digits) {
     if (digits.length === 0) return [];
     
@@ -64,6 +62,42 @@ const letterCombinations = function(digits) {
         });
         resArr = newArr;
     }
+    
+    return resArr;
+};
+
+//Optimized with DFS
+//O(3^n x 4^m) ST where n is # of digits that maps to 3 chars and m to 4
+const letterCombinations = function(digits) {
+    if (digits.length === 0) return [];
+    
+    const dict = {
+        '2': 'abc',
+        '3': 'def',
+        '4': 'ghi',
+        '5': 'jkl',
+        '6': 'mno',
+        '7': 'pqrs',
+        '8': 'tuv',
+        '9': 'wxyz'
+    }
+    
+    let resArr = [];
+    
+    const dfs = (i, str) => {
+        if (i === digits.length) {
+            resArr.push(str);
+            return;
+        }
+        
+        const letters = dict[digits[i]]
+        
+        for (let j = 0; j < letters.length; j++) {
+            dfs(i+1, str+letters[j]);
+        }
+    }
+    
+    dfs(0, '');
     
     return resArr;
 };
