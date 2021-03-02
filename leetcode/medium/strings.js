@@ -103,3 +103,55 @@ const reorganizeString = function(S) {
     
     return res.join('');
 };
+
+
+// Given an array of strings strs, group the anagrams together. You can return the 
+// answer in any order.
+
+// An Anagram is a word or phrase formed by rearranging the letters of a different 
+// word or phrase, typically using all the original letters exactly once.
+
+// O(NKlogK) T | O(NK) S where N is length of strs and K is max length of str in strs
+const groupAnagrams = function(strs) {
+    let anagrams = new Map();
+    
+    
+    strs.forEach((str) => {
+        let sortedStr = str.split("").sort().join('');
+        anagrams[sortedStr] ? anagrams[sortedStr].push(str) : anagrams[sortedStr] = [str];
+    })
+    
+    return Object.values(anagrams);
+};
+
+//More Optimal (counting sort algo and alpha dict in place of .sort())
+//O(NM+NK) ST, where N is length of strs, M is max length of string in strs, and K is alpha size
+const groupAnagrams = function(strs) {
+    let anagrams = new Map();
+    const alpha = 'abcdefghijklmnopqrstuvwxyz';
+    const alphaMap = new Map();
+    for (let i = 0;i<alpha.length;i++) {
+        alphaMap[alpha[i]] = i;
+    }
+    
+    strs.forEach((str) => {
+        let arr = [];
+        for (let i = 0; i<str.length;i++) {
+            let idx = alphaMap[str[i]]
+            arr[idx] ? arr[idx]++ : arr[idx] = 1;
+        }
+        
+        let sortedStr = '';
+        for (let i = 0; i<arr.length;i++) {
+            while (arr[i]) {
+                sortedStr += i.toString();
+                arr[i]--;
+            }
+            sortedStr += '-'
+        }
+        
+        anagrams[sortedStr] ? anagrams[sortedStr].push(str) : anagrams[sortedStr] = [str];
+    })
+    
+    return Object.values(anagrams);
+};
