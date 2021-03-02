@@ -67,3 +67,36 @@ const letterCombinations = function(digits) {
     
     return resArr;
 };
+
+
+
+
+
+const reorganizeString = function(S) {
+    const charCount = new Map();
+    
+    for (let i=0; i<S.length; i++) {
+        charCount[S[i]] ? charCount[S[i]]++ : charCount[S[i]] = 1;
+    }
+ 
+    const sortedChars = Object.keys(charCount).sort((a,b)=>charCount[b]-charCount[a]);
+    const maxChar = sortedChars[0];
+    
+    if (charCount[maxChar] > Math.ceil(S.length/2)) return '';
+    
+    const res = new Array(S.length);
+    
+    let i = 0;
+    sortedChars.forEach((char)=>{
+        while (charCount[char]) {
+            if (!res[i%S.length]) {
+                res[i%S.length] = char;
+                i++;
+                charCount[char]--;
+            }
+            i++;
+        }
+    })
+    
+    return res.join('');
+};
