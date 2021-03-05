@@ -22,3 +22,18 @@ const selfDividing = function(num) {
     
     return true;
 }
+
+//O(n) T | O(1) S
+const moveZeroes = function(nums) {
+    let left = 0;
+    let right = 1;
+    
+    while (right < nums.length) {
+        if (nums[left] === 0) {
+            nums[right] === 0 ? right++ : [nums[left],nums[right]] = [nums[right],nums[left]]
+        } else {
+            left++;
+            right++;
+        }
+    }
+};
