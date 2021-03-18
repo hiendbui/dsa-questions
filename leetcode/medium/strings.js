@@ -189,3 +189,29 @@ const groupAnagrams = function(strs) {
     
     return Object.values(anagrams);
 };
+
+
+//O(2^n) ST
+var countAndSay = function(n) {
+    if (n===1) return '1';
+
+    const prevRes = countAndSay(n-1);
+    
+    let curNum = prevRes[0];
+    let count = 1;
+    let result = [];
+
+    
+    for (let i=1; i < prevRes.length; i++) {
+        if (prevRes[i] === curNum) {
+            count++;
+        } else {
+            result.push(count,curNum);
+            curNum = prevRes[i];
+            count = 1;
+        }
+    };
+  
+    result.push(count,curNum);
+    return result.join('');
+};

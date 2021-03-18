@@ -59,3 +59,29 @@ const sumZero = function(n) {
     }
     return arr;
 };
+
+
+//O(n) T | O(1) S
+var isMonotonic = function(A) {
+    if (A.length < 2) return true;
+    
+    let isIncreasing = false;
+    let isDecreasing = false;
+    
+    let i = 0;
+    let j = 1;
+    
+    while (j < A.length) {
+        if (A[i] < A[j]) {
+            isIncreasing = true
+        } else if (A[i] > A[j]) {
+            isDecreasing = true;
+        }
+        if (isIncreasing && isDecreasing) return false;
+        i++;
+        j++;
+    };
+    
+    return true;
+    
+};
