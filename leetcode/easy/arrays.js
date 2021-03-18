@@ -37,3 +37,40 @@ const moveZeroes = function(nums) {
         }
     }
 };
+
+//O(n) T | O(1)S
+var isMonotonic = function(A) {
+    if (A.length < 2) return true;
+    
+    let isIncreasing = false;
+    let isDecreasing = false;
+    
+    let i = 0;
+    let j = 1;
+    
+    while (j < A.length) {
+        if (A[i] < A[j]) {
+            isIncreasing = true
+        } else if (A[i] > A[j]) {
+            isDecreasing = true;
+        }
+        if (isIncreasing && isDecreasing) return false;
+        i++;
+        j++;
+    };
+    
+    return true;
+    
+};
+
+//O(n) T | O(1)S
+var maxSubArray = function(nums) {
+    let maxSum = nums[0];
+    
+    for (let i=1; i<nums.length; i++) {
+        nums[i] = Math.max(nums[i], nums[i-1] + nums[i]);
+        maxSum = Math.max(maxSum,nums[i])
+    }
+    
+    return maxSum;
+};
