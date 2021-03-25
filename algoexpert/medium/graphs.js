@@ -46,7 +46,7 @@ function trueIdx(idx, arrLength) {
 	};
 }
 
-//O(mn) STEP
+//O(mn) ST
 function riverSizes(matrix) {
   const visited = new Set();
 	const sizes = [];
