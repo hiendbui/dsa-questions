@@ -45,3 +45,60 @@ function trueIdx(idx, arrLength) {
 			return idx % arrLength;
 	};
 }
+
+//O(mn) STEP
+function riverSizes(matrix) {
+  const visited = new Set();
+	const sizes = [];
+	
+	for (let i = 0; i < matrix.length; i++) {
+		for (let j = 0; j < matrix[0].length; j++) {
+			if (matrix[i][j] && !visited.has(`${i},${j}`)) {
+				sizes.push(bfs(matrix,i,j,visited));
+			}
+		}
+	}
+	return sizes;
+}
+
+function bfs(matrix,i,j,visited) {
+	let count = 0;
+	const queue = [[i,j]];
+	visited.add(`${i},${j}`);
+	while (queue.length) {
+		const coords = queue.shift();
+		const x = coords[0];
+		const y = coords[1];
+		
+		if (x < matrix.length-1 && matrix[x+1][y]) {
+			if (!visited.has(`${x+1},${y}`)) {
+				queue.push([x+1,y]);
+				visited.add(`${x+1},${y}`);
+			}
+		}
+		
+		if (x > 0 && matrix[x-1][y]) {
+			if (!visited.has(`${x-1},${y}`)) {
+				queue.push([x-1,y]);
+				visited.add(`${x-1},${y}`);
+			}
+		}
+		
+		if (y < matrix[0].length-1 && matrix[x][y+1]) {
+			if (!visited.has(`${x},${y+1}`)) {
+				queue.push([x,y+1]);
+				visited.add(`${x},${y+1}`);
+			}
+		}
+		
+		if (y > 0 && matrix[x][y-1]) {
+			if (!visited.has(`${x},${y-1}`)) {
+				queue.push([x,y-1]);
+				visited.add(`${x},${y-1}`);
+			}
+		}
+		
+		count++;
+	}
+	return count;
+}
