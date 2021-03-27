@@ -137,3 +137,38 @@ function getYoungestCommonAncestor(topAncestor, descendantOne, descendantTwo) {
 }
 
 //Optimal: O(d) T | O(1) S where d is depth of tree
+
+function getYoungestCommonAncestor(topAncestor, descendantOne, descendantTwo) {
+  const depthOne = getDepth(descendantOne, topAncestor);
+	const depthTwo = getDepth(descendantTwo, topAncestor);
+	
+	if (depthOne > depthTwo) {
+		descendantOne = getDescAtSameLevel(descendantOne, depthOne - depthTwo);
+	} else if (depthOne < depthTwo) {
+		descendantTwo = getDescAtSameLevel(descendantTwo, depthTwo - depthOne);
+	}
+	
+	while (descendantOne !== descendantTwo) {
+		descendantOne = descendantOne.ancestor;
+		descendantTwo = descendantTwo.ancestor;
+	}
+	
+	return descendantOne;
+}
+
+function getDepth(descendant, topAncestor) {
+	let depth = 0;
+	while (descendant !== topAncestor) {
+		depth++;
+		descendant = descendant.ancestor;
+	}
+	return depth;
+}
+
+function getDescAtSameLevel(descendant, diff) {
+	while (diff) {
+		descendant = descendant.ancestor;
+		diff--;
+	}
+	return descendant;
+}
