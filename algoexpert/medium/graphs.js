@@ -102,3 +102,38 @@ function bfs(matrix,i,j,visited) {
 	}
 	return count;
 }
+
+
+
+class AncestralTree {
+  constructor(name) {
+    this.name = name;
+    this.ancestor = null;
+  }
+}
+
+//Non-Optimal: O(n) T | O(n) S where n is # of nodes
+function getYoungestCommonAncestor(topAncestor, descendantOne, descendantTwo) {
+  const ancestors = new Set([descendantOne, descendantTwo]);
+	let i = 2;
+	let ancestorOne = descendantOne;
+	let ancestorTwo = descendantTwo;
+	while (ancestorOne || ancestorTwo) {
+		if (ancestorOne.ancestor) {
+			ancestors.add(ancestorOne.ancestor);
+			ancestorOne = ancestorOne.ancestor;
+			i++;
+			if (ancestors.size !== i) return ancestorOne;
+		}
+		
+		if (ancestorTwo.ancestor) {
+			ancestors.add(ancestorTwo.ancestor);
+			ancestorTwo = ancestorTwo.ancestor;
+			i++;
+			if (ancestors.size !== i) return ancestorTwo;
+		}
+	}
+	return topAncestor;
+}
+
+//Optimal: O(d) T | O(1) S where d is depth of tree
