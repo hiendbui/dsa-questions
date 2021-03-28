@@ -172,3 +172,60 @@ function getDescAtSameLevel(descendant, diff) {
 	}
 	return descendant;
 }
+
+
+
+//Solution to removeIslands w/ DFS: O(mn) ST
+function removeIslands(matrix) {
+  const borderedIslands = findBorderedIslands(matrix);
+	
+	for (let i = 0; i < matrix.length; i++) {
+		for (let j = 0; j < matrix[0].length;j++) {
+			if (!borderedIslands.has(`${i},${j}`) && matrix[i][j]) {
+				matrix[i][j] = 0;
+			}
+		}
+	}
+	
+	return matrix;
+}
+
+function findBorderedIslands(matrix) {
+	const bordered = new Set();
+	
+	for (let i = 0; i < matrix.length; i++) {
+		if (!bordered.has(`${i},0`) && matrix[i][0]) {
+			dfs(matrix,i,0, bordered);
+		};
+		
+		let j = matrix[0].length-1;
+		if (!bordered.has(`${i},${j}`) && matrix[i][j]) {
+			dfs(matrix,i,j, bordered);
+		}
+	};
+	
+	for (let j = 0; j < matrix[0].length; j++) {
+		if (!bordered.has(`0,${j}`) && matrix[0][j]) {
+			dfs(matrix,0,j, bordered);
+		}
+		
+		let i = matrix.length-1;
+		if (!bordered.has(`${i},${j}`) && matrix[i][j]) {
+			dfs(matrix,i,j, bordered);
+		};
+	};
+	
+	return bordered;
+}
+
+function dfs(matrix, i, j, bordered) {
+	if (i < 0 || i > matrix.length - 1) return;
+	if (j < 0 || j > matrix[0].length - 1) return;
+	if (matrix[i][j] === 0 || bordered.has(`${i},${j}`)) return;
+	
+	bordered.add(`${i},${j}`);
+	dfs(matrix, i+1, j, bordered);
+	dfs(matrix, i-1, j, bordered);
+	dfs(matrix, i, j+1, bordered);
+	dfs(matrix, i, j-1, bordered);
+}
