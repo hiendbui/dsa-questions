@@ -229,3 +229,39 @@ function dfs(matrix, i, j, bordered) {
 	dfs(matrix, i, j+1, bordered);
 	dfs(matrix, i, j-1, bordered);
 }
+
+
+
+
+//O(v+e) T | O(v) where v is vertices and e is edges
+function cycleInGraph(edges) {
+  const visited = new Set();
+	const curStack = new Array(edges.length).fill(false);
+	
+	for (let i=0; i < edges.length; i++) {
+		if (visited.has(i)) continue;
+		
+		const containsCycle = cycleExists(edges, visited, curStack, i)
+		if (containsCycle) return true;
+	}
+	
+	return false;
+}
+
+//dfs
+function cycleExists(edges, visited, curStack, curNode) {
+	visited.add(curNode);
+	curStack[curNode] = true;
+	
+	for (const node of edges) {
+		if (!visited.has(node)) {
+			const containsCycle = cycleExists(edges, visited, curStack, node);
+			if (containsCycle) return true;
+		} else if (curStack[node]){
+			return true;
+		}
+	};
+	
+	curStack[curNode] = false;
+	return false;
+}
