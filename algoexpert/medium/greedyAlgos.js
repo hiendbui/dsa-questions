@@ -33,3 +33,20 @@ function countingSort(arr) {
 	
 	return sortedIdx;
 }
+
+
+//O(n) T | O(1) S
+function validStartingCity(distances, fuel, mpg) {
+	let milesLeft = 0;
+	let startIdx = 0;
+	let milesLeftAtStartIdx = 0;
+	
+	for (let i=1; i<fuel.length; i++) {
+		milesLeft += fuel[i-1] * mpg - distances[i-1];
+		if (milesLeft < milesLeftAtStartIdx) {
+			startIdx = i;
+			milesLeftAtStartIdx = milesLeft;
+		}
+	}
+	return startIdx;
+}
