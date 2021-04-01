@@ -53,3 +53,28 @@ function nonConstructibleChange(coins) {
 	}
  	return change + 1;
 }
+
+
+//O(m + n) ST
+function sortedSquaredArray(array) {
+	const countArr = [];
+	
+	array.forEach(num => {
+		const absNum = Math.abs(num);
+		countArr[absNum] ? countArr[absNum]++ : countArr[absNum] = 1;
+	});
+	
+	const sortedAbsNums = [];
+	for (let i = 0; i < countArr.length; i++) {
+		while (countArr[i]) {
+			sortedAbsNums.push(i);
+			countArr[i]--
+		}
+	};
+			 
+  	for (let i = 0; i < sortedAbsNums.length; i++) {
+		sortedAbsNums[i] = sortedAbsNums[i] ** 2;
+	};
+	
+	return sortedAbsNums;
+}
