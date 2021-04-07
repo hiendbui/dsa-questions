@@ -74,3 +74,51 @@ var maxSubArray = function(nums) {
     
     return maxSum;
 };
+
+
+
+const reorderLogFiles = function(logs) {
+    const arrLogs = logs.map(log => log.split(' '));
+    const letterLogs = [];
+    const digitLogs = [];
+    
+    for (let i = 0; i < arrLogs.length; i++) {
+        if (!(parseInt(arrLogs[i][1]) < Infinity)) {
+            letterLogs.push(arrLogs[i]);
+        } else {
+            digitLogs.push(logs[i])
+        };
+    }
+    
+    const sortedLetterLogs = quickSort(letterLogs);
+    const strLetterLogs = sortedLetterLogs.map(log => log.join(' '));
+    
+    return strLetterLogs.concat(digitLogs);
+};
+    
+const quickSort = logs => {
+    if (logs.length <= 1) return logs;
+    
+    const pivot = logs[0];
+    const left = [];
+    const right = [];
+    
+    for (let logIdx = 1; logIdx < logs.length; logIdx++) {
+        let wordIdx = 1;
+        let same = true;
+        while (wordIdx < Math.max(pivot.length,logs[logIdx].length)) {
+            let word = logs[logIdx][wordIdx];
+            if (pivot[wordIdx] !== word) {
+                pivot[wordIdx] > word || !word ? left.push(logs[logIdx]) : right.push(logs[logIdx]);
+                same = false;
+                break;
+            }
+            wordIdx++;
+        }
+        if (same) {
+            pivot[0] > logs[logIdx][0] ? left.push(logs[logIdx]) : right.push(logs[logIdx]);
+        }
+    }
+    
+    return quickSort(left).concat([pivot].concat(quickSort(right)));
+}
