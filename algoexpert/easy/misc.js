@@ -52,3 +52,37 @@ function classPhotos(redShirtHeights, blueShirtHeights) {
 	
   	return true;
 }
+
+//O(nlogn) T | O(1) S
+function tandemBicycle(redShirtSpeeds, blueShirtSpeeds, fastest) {
+  	redShirtSpeeds.sort((a,b)=>a-b);
+	blueShirtSpeeds.sort((a,b)=>a-b);
+	
+	if (fastest === true) {
+		return calcMax(redShirtSpeeds,blueShirtSpeeds);
+	} else {
+		return calcMin(redShirtSpeeds,blueShirtSpeeds);
+	}
+}
+
+function calcMax(arr1,arr2) {
+	let idx1 = 0;
+	let idx2 = arr1.length - 1;
+	let total = 0;
+	
+	while (idx2 >= 0) {
+		total += Math.max(arr1[idx1],arr2[idx2]);
+		idx1++;
+		idx2--;
+	}
+	
+	return total;
+}
+
+function calcMin(arr1,arr2) {
+	let total = 0;
+	for (let i = 0; i < arr1.length; i++) {
+		total += Math.max(arr1[i],arr2[i]);
+	}
+	return total;
+}
