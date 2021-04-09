@@ -46,3 +46,26 @@ function runLengthEncoding(string) {
 	newStr += `${count}${nextChar ? nextChar : curChar}`;
 	return newStr;
 }
+
+
+
+//O(m+n) T | O(c) where m is len of chars, n is len of doc, and c is # of uniq chars
+function generateDocument(characters, document) {
+  	const charsAvailable = new Map();
+	
+  	for (let i = 0; i < characters.length; i++) {
+		const char = characters[i];
+		charsAvailable[char] ? charsAvailable[char]++ : charsAvailable[char] = 1;
+	}
+	
+	for (let i = 0; i < document.length; i++) {
+		const char = document[i];
+		if (!charsAvailable[char]) {
+			return false;
+		} else {
+			charsAvailable[char]--;
+		}
+	}
+	
+	return true;
+}
