@@ -85,3 +85,19 @@ var isMonotonic = function(A) {
     return true;
     
 };
+
+
+var isHappy = function(n, nums = new Set()) {
+    if (n === 1) return true;
+    if (nums.has(n)) return false;
+    
+    let sum = 0;
+    let numStr = n.toString();
+    
+    for (let i=0; i < numStr.length; i++) {
+        sum += parseInt(numStr[i]) ** 2;
+    }
+    
+    nums.add(n);
+    return isHappy(sum, nums);
+};
