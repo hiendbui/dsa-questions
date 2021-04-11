@@ -122,3 +122,17 @@ const quickSort = logs => {
     
     return quickSort(left).concat([pivot].concat(quickSort(right)));
 }
+
+//Best time to buy and sell stock I
+//O(n) T | O(1) S
+var maxProfit = function(prices) {
+    let start = prices[0];
+    let profit = 0;
+    
+    for (let i = 1; i < prices.length; i++) {
+        profit = Math.max(profit,prices[i]-start);
+        start = Math.min(start, prices[i]);
+    }
+    
+    return profit;
+};
