@@ -197,7 +197,8 @@ function findBorderedIslands(matrix) {
 		if (!bordered.has(`${i},0`) && matrix[i][0]) {
 			dfs(matrix,i,0, bordered);
 		};
-		
+		[0,0]
+		[1,0]
 		let j = matrix[0].length-1;
 		if (!bordered.has(`${i},${j}`) && matrix[i][j]) {
 			dfs(matrix,i,j, bordered);
@@ -264,4 +265,23 @@ function cycleExists(edges, visited, curStack, curNode) {
 	
 	curStack[curNode] = false;
 	return false;
+}
+
+//O(m+n) T | O(1) S 
+function searchInSortedMatrix(matrix, target) {
+	let row = 0;
+	let col = matrix[0].length-1;
+	
+	while (row < matrix.length && col >= 0) {
+		const val = matrix[row][col]
+		if (val === target) {
+			return [row,col];
+		} else if (val > target) {
+			col--;
+		} else {
+			row++;
+		}
+	}
+	
+	return [-1,-1];
 }
