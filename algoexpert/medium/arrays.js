@@ -171,3 +171,18 @@ function firstDuplicateValue(array) {
 	}
 	return -1;
 }
+
+//O(n) T | O(1) S, where n is length of array (since order length is constant at three)
+function threeNumberSort(array, order) {
+	let lastNonNumIdx = 0;
+  	order.forEach(num => {
+		for (let i = lastNonNumIdx; i < array.length; i++) {
+			if (array[i] === num) {
+				[array[i],array[lastNonNumIdx]] = [array[lastNonNumIdx],array[i]] 	
+				lastNonNumIdx++;
+			}
+		}
+	})
+	
+	return array;
+}
