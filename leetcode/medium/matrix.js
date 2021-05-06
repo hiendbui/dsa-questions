@@ -92,3 +92,41 @@ const minPathSum = function(grid) {
     
     return grid[grid.length-1][grid[0].length-1];
 };
+
+//79. Word Search
+// Given an m x n grid of characters board and a string word, return true if word 
+// exists in the grid.
+
+// The word can be constructed from letters of sequentially adjacent cells, where 
+// adjacent cells are horizontally or vertically neighboring. The same letter cell 
+// may not be used more than once.
+
+const exist = function(board, word) {
+  for (let i=0; i < board.length; i++) {
+      for (let j=0; j < board[0].length; j++) {
+          if (dfs(board, word, 0, i, j)) return true;
+      }
+  }  
+    
+    return false;
+};
+
+const dfs = function(board, word, idx, row, col, visited=new Set()) {
+    const outOfGrid = row < 0 || col < 0 || row >= board.length || col >= board[0].length;
+    const alreadyVisited = visited.has(`${row},${col}`);
+    
+    if (alreadyVisited || outOfGrid || board[row][col] !== word[idx]) { 
+        return false;
+    } else if (word.length === idx + 1) {
+        return true;
+    } else {
+        visited.add(`${row},${col}`);
+    }
+    
+    const up = dfs(board, word, idx+1, row-1, col, new Set(visited));
+    const down = dfs(board, word, idx+1, row+1, col, new Set(visited));
+    const right = dfs(board, word, idx+1, row, col+1, new Set(visited));
+    const left = dfs(board, word, idx+1, row, col-1, new Set(visited));
+    
+    return up || down || right || left;
+};
